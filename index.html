@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sky Games - 500+ Free Games</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #181c24; color: #fff; margin: 0; }
+        header { background: #232946; padding: 2rem 1rem; text-align: center; }
+        header h1 { margin: 0; font-size: 2.5rem; }
+        header p { color: #b8c1ec; }
+        .section {
+            margin: 2.5rem auto 2rem auto;
+            max-width: 1200px;
+            background: #232946;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px #0005;
+            overflow: hidden;
+        }
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(90deg, #232946 80%, #eebbc3 100%);
+            color: #eebbc3;
+            padding: 1.2rem 2rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            user-select: none;
+            border-bottom: 1px solid #181c24;
+        }
+        .section-header:hover {
+            background: linear-gradient(90deg, #232946 60%, #ffd6e0 100%);
+        }
+        .section-content {
+            display: none;
+            padding: 2rem;
+            background: #181c24;
+        }
+        .section-content.open {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+        .game-card {
+            background: #232946;
+            border-radius: 14px;
+            box-shadow: 0 2px 12px #0004;
+            padding: 1rem;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1.5px solid #eebbc3;
+        }
+        .game-card:hover {
+            transform: translateY(-7px) scale(1.04);
+            box-shadow: 0 8px 32px #eebbc355;
+            border-color: #ffd6e0;
+        }
+        .game-thumb {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 10px;
+            background: #121629;
+            box-shadow: 0 2px 8px #0002;
+        }
+        .game-title {
+            margin: 0.7rem 0 0.3rem;
+            font-size: 1.15rem;
+            color: #eebbc3;
+            font-weight: bold;
+        }
+        .play-btn {
+            display: inline-block;
+            margin-top: 0.5rem;
+            padding: 0.5rem 1.2rem;
+            background: linear-gradient(90deg, #eebbc3 60%, #ffd6e0 100%);
+            color: #232946;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 1rem;
+            box-shadow: 0 1px 4px #0002;
+            transition: background 0.2s, color 0.2s;
+        }
+        .play-btn:hover {
+            background: linear-gradient(90deg, #ffd6e0 60%, #eebbc3 100%);
+            color: #232946;
+        }
+        @media (max-width: 600px) {
+            .section-content.open { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+    <h1>Sky Games</h1>
+    <p>Welcome to <b>SkyGames</b>! Play 500+ free, safe, and fun games! No downloads. No 18+ content. Just pure fun.</p>
+    </header>
+    <main>
+        <div id="gameSections">
+            <!-- Game sections will be injected by JavaScript for efficiency. -->
+        </div>
+    </main>
+    <footer style="text-align:center; color:#b8c1ec; padding:1rem 0;">
+        &copy; 2025 SkyGames. All games are property of their respective owners.
+    </footer>
+    <!-- Hidden credits section -->
+    <div id="credits" style="display:none; position:fixed; top:20px; left:50%; transform:translateX(-50%); background:#232946; color:#eebbc3; padding:2rem 3rem; border-radius:12px; box-shadow:0 2px 16px #000a; z-index:9999;">
+        <h2>Credits</h2>
+        <p>Owner: Caleb John Waldroup</p>
+        <button onclick="document.getElementById('credits').style.display='none'" style="background:#eebbc3;color:#232946;padding:0.5rem 1.2rem;border:none;border-radius:6px;font-weight:bold;cursor:pointer;">Close</button>
+    </div>
+    <script>
+    // List of games (expand this array to 500+ entries for full site)
+        // Categorized games for sections
+        const gameSections = [
+            {
+                name: 'Arcade Classics',
+                games: [
+                    { title: 'Pacman', thumb: 'https://upload.wikimedia.org/wikipedia/commons/5/59/Pacman.png', url: 'https://www.google.com/logos/2010/pacman10-i.html' },
+                    { title: 'Tetris', thumb: 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Tetris_GB_Screen.png', url: 'https://tetris.com/play-tetris' },
+                    { title: 'Pong', thumb: 'https://upload.wikimedia.org/wikipedia/commons/2/2c/Pong.png', url: 'https://www.ponggame.org/' },
+                    { title: 'Snake', thumb: 'https://upload.wikimedia.org/wikipedia/commons/6/6b/Snake_game.png', url: 'https://playsnake.org/' },
+                    { title: 'Flappy Bird', thumb: 'https://images.crazygames.com/games/flappy-bird/cover-1583224948690.png', url: 'https://flappybird.io/' },
+                    { title: 'Doodle Jump', thumb: 'https://images.crazygames.com/games/doodle-jump/cover-1583224948690.png', url: 'https://www.crazygames.com/game/doodle-jump' },
+                    { title: 'Helix Jump', thumb: 'https://images.crazygames.com/games/helix-jump/cover-1583224948690.png', url: 'https://www.crazygames.com/game/helix-jump' },
+                    { title: 'Stack', thumb: 'https://images.crazygames.com/games/stack/cover-1583224948690.png', url: 'https://www.crazygames.com/game/stack' },
+                ]
+            },
+            {
+                name: 'Puzzle & Logic',
+                games: [
+                    { title: '2048', thumb: 'https://images.crazygames.com/games/2048/cover-1583224948690.png', url: 'https://play2048.co/' },
+                    { title: 'Sudoku', thumb: 'https://upload.wikimedia.org/wikipedia/commons/e/e0/Sudoku-by-L2G-20050714.svg', url: 'https://sudoku.com/' },
+                    { title: 'Crossword', thumb: 'https://upload.wikimedia.org/wikipedia/commons/2/2b/Crossword_example.png', url: 'https://www.boatloadpuzzles.com/playcrossword' },
+                    { title: 'Minesweeper', thumb: 'https://upload.wikimedia.org/wikipedia/commons/5/5a/Minesweeper_Icon.png', url: 'https://minesweeperonline.com/' },
+                    { title: 'Wordle', thumb: 'https://upload.wikimedia.org/wikipedia/commons/2/2d/Wordle_2022.svg', url: 'https://www.nytimes.com/games/wordle/index.html' },
+                    { title: 'Little Alchemy 2', thumb: 'https://images.crazygames.com/games/little-alchemy-2/cover-1583224948690.png', url: 'https://littlealchemy2.com/' },
+                    { title: 'Cookie Clicker', thumb: 'https://images.crazygames.com/games/cookie-clicker/cover-1583224948690.png', url: 'https://orteil.dashnet.org/cookieclicker/' },
+                ]
+            },
+            {
+                name: 'Board & Card',
+                games: [
+                    { title: 'Chess', thumb: 'https://images.chesscomfiles.com/uploads/v1/images_users/tiny_mce/PNektariev/phplQw1nT.png', url: 'https://www.chess.com/play/computer' },
+                    { title: 'Checkers', thumb: 'https://upload.wikimedia.org/wikipedia/commons/9/9a/Checkers-Game.png', url: 'https://www.gamesforthebrain.com/game/checkers/' },
+                    { title: 'Solitaire', thumb: 'https://upload.wikimedia.org/wikipedia/commons/4/4c/Klondike_Solitaire.png', url: 'https://www.solitr.com/' },
+                    { title: 'Uno Online', thumb: 'https://images.crazygames.com/games/uno-online/cover-1583224948690.png', url: 'https://www.crazygames.com/game/uno-online' },
+                    { title: 'Connect 4', thumb: 'https://upload.wikimedia.org/wikipedia/commons/7/79/Connect_Four_Board_and_Box.jpg', url: 'https://www.mathsisfun.com/games/connect4.html' },
+                    { title: 'Tic Tac Toe', thumb: 'https://upload.wikimedia.org/wikipedia/commons/3/32/Tic_tac_toe.svg', url: 'https://playtictactoe.org/' },
+                ]
+            },
+            {
+                name: 'Platform & Adventure',
+                games: [
+                    { title: 'Fireboy and Watergirl', thumb: 'https://images.crazygames.com/games/fireboy-and-watergirl-forest-temple/cover-1583224948690.png', url: 'https://www.crazygames.com/game/fireboy-and-watergirl-forest-temple' },
+                    { title: 'Vex 4', thumb: 'https://images.crazygames.com/games/vex-4/cover-1583224948690.png', url: 'https://www.crazygames.com/game/vex-4' },
+                    { title: 'Vex 5', thumb: 'https://images.crazygames.com/games/vex-5/cover-1583224948690.png', url: 'https://www.crazygames.com/game/vex-5' },
+                    { title: 'Vex 6', thumb: 'https://images.crazygames.com/games/vex-6/cover-1583224948690.png', url: 'https://www.crazygames.com/game/vex-6' },
+                    { title: 'Super Mario Bros', thumb: 'https://upload.wikimedia.org/wikipedia/en/0/03/Super_Mario_Bros._box.png', url: 'https://supermario-game.com/' },
+                    { title: 'Temple Run 2', thumb: 'https://images.crazygames.com/games/temple-run-2/cover-1583224948690.png', url: 'https://www.crazygames.com/game/temple-run-2' },
+                    { title: 'Subway Surfers', thumb: 'https://images.crazygames.com/games/subway-surfers/cover-1583224948690.png', url: 'https://www.crazygames.com/game/subway-surfers' },
+                ]
+            },
+            {
+                name: 'Multiplayer & .io',
+                games: [
+                    { title: 'Krunker.io', thumb: 'https://images.crazygames.com/games/krunker-io/cover-1583224948690.png', url: 'https://krunker.io/' },
+                    { title: 'Agar.io', thumb: 'https://images.crazygames.com/games/agario/cover-1583224948690.png', url: 'https://agar.io/' },
+                    { title: 'Slither.io', thumb: 'https://images.crazygames.com/games/slither-io/cover-1583224948690.png', url: 'https://slither.io/' },
+                    { title: 'Paper.io 2', thumb: 'https://images.crazygames.com/games/paper-io-2/cover-1583224948690.png', url: 'https://www.crazygames.com/game/paper-io-2' },
+                    { title: 'Shell Shockers', thumb: 'https://images.crazygames.com/games/shellshock-io/cover-1583224948690.png', url: 'https://shellshock.io/' },
+                    { title: 'Zombs Royale', thumb: 'https://images.crazygames.com/games/zombsroyale-io/cover-1583224948690.png', url: 'https://zombsroyale.io/' },
+                    { title: 'Bonk.io', thumb: 'https://images.crazygames.com/games/bonk-io/cover-1583224948690.png', url: 'https://bonk.io/' },
+                    { title: 'Among Us Online', thumb: 'https://images.crazygames.com/games/among-us/cover-1583224948690.png', url: 'https://www.crazygames.com/game/among-us' },
+                    { title: 'Superhex.io', thumb: 'https://images.crazygames.com/games/superhex-io/cover-1583224948690.png', url: 'https://www.crazygames.com/game/superhex-io' },
+                ]
+            },
+            {
+                name: 'Sports & Racing',
+                games: [
+                    { title: 'Basketball Stars', thumb: 'https://images.crazygames.com/games/basketball-stars/cover-1583224948690.png', url: 'https://www.crazygames.com/game/basketball-stars' },
+                    { title: 'Soccer Random', thumb: 'https://images.crazygames.com/games/soccer-random/cover-1583224948690.png', url: 'https://www.crazygames.com/game/soccer-random' },
+                    { title: 'Moto X3M', thumb: 'https://images.crazygames.com/games/moto-x3m/cover-1583224948690.png', url: 'https://www.crazygames.com/game/moto-x3m' },
+                    { title: 'Drift Hunters', thumb: 'https://images.crazygames.com/games/drift-hunters/cover-1583224948690.png', url: 'https://www.crazygames.com/game/drift-hunters' },
+                    { title: 'Madalin Stunt Cars 2', thumb: 'https://images.crazygames.com/games/madalin-stunt-cars-2/cover-1583224948690.png', url: 'https://www.crazygames.com/game/madalin-stunt-cars-2' },
+                    { title: 'Madalin Stunt Cars 3', thumb: 'https://images.crazygames.com/games/madalin-stunt-cars-3/cover-1583224948690.png', url: 'https://www.crazygames.com/game/madalin-stunt-cars-3' },
+                    { title: 'Smash Karts', thumb: 'https://images.crazygames.com/games/smash-karts/cover-1583224948690.png', url: 'https://www.crazygames.com/game/smash-karts' },
+                    { title: 'Rocket League', thumb: 'https://images.crazygames.com/games/rocket-league/cover-1583224948690.png', url: 'https://www.crazygames.com/game/rocket-league' },
+                    { title: 'Basket Bros', thumb: 'https://images.crazygames.com/games/basketbros-io/cover-1583224948690.png', url: 'https://basketbros.io/' },
+                    { title: 'Retro Bowl', thumb: 'https://images.crazygames.com/games/retro-bowl/cover-1583224948690.png', url: 'https://www.crazygames.com/game/retro-bowl' },
+                ]
+            },
+            {
+                name: 'Other & Misc',
+                games: [
+                    { title: 'GeoGuessr', thumb: 'https://images.crazygames.com/games/geoguessr/cover-1583224948690.png', url: 'https://www.geoguessr.com/free' },
+                    { title: 'Tunnel Rush', thumb: 'https://images.crazygames.com/games/tunnel-rush/cover-1583224948690.png', url: 'https://www.crazygames.com/game/tunnel-rush' },
+                    { title: 'Getaway Shootout', thumb: 'https://images.crazygames.com/games/getaway-shootout/cover-1583224948690.png', url: 'https://www.crazygames.com/game/getaway-shootout' },
+                    { title: 'Snowball.io', thumb: 'https://images.crazygames.com/games/snowball-io/cover-1583224948690.png', url: 'https://www.crazygames.com/game/snowball-io' },
+                    { title: 'Hole.io', thumb: 'https://images.crazygames.com/games/hole-io/cover-1583224948690.png', url: 'https://www.crazygames.com/game/hole-io' },
+                ]
+            }
+        ];
+        // Render all game sections with dropdowns
+        const sectionsContainer = document.getElementById('gameSections');
+        sectionsContainer.innerHTML = gameSections.map((section, idx) => `
+            <div class="section">
+                <div class="section-header" data-section="${idx}">
+                    <span>${section.name}</span>
+                    <span style="font-size:1.2rem;">&#9660;</span>
+                </div>
+                <div class="section-content" id="section-content-${idx}">
+                    ${section.games.map(game => `
+                        <div class="game-card">
+                            <img class="game-thumb" src="${game.thumb}" alt="${game.title}">
+                            <div class="game-title">${game.title}</div>
+                            <a class="play-btn" href="${game.url}" target="_blank">Play</a>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `).join('');
+        // Dropdown logic
+        document.querySelectorAll('.section-header').forEach(header => {
+            header.addEventListener('click', function() {
+                const idx = this.getAttribute('data-section');
+                const content = document.getElementById('section-content-' + idx);
+                const isOpen = content.classList.contains('open');
+                document.querySelectorAll('.section-content').forEach(c => c.classList.remove('open'));
+                if (!isOpen) content.classList.add('open');
+            });
+        });
+    // Unlock credits with code
+    document.addEventListener('keydown', (e) => {
+        window._creditCode = (window._creditCode || '') + e.key.toUpperCase();
+        if(window._creditCode.endsWith('FISHERTHECAT')) {
+            document.getElementById('credits').style.display = 'block';
+            window._creditCode = '';
+        }
+        if(window._creditCode.length > 20) window._creditCode = window._creditCode.slice(-20);
+    });
+    </script>
+</body>
+</html>
