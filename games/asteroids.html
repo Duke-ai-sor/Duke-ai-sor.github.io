@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Asteroids</title>
+  <style>
+    body { background: #222; color: #fff; margin: 0; display: flex; flex-direction: column; align-items: center; }
+    canvas { background: #111; margin-top: 40px; border-radius: 8px; box-shadow: 0 2px 16px #000a; }
+    h1 { margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>Asteroids</h1>
+  <canvas id="asteroids" width="480" height="320"></canvas>
+  <script>
+    // Simple Asteroids clone (minimal, for demo)
+    const canvas = document.getElementById('asteroids');
+    const ctx = canvas.getContext('2d');
+    let ship = { x: 240, y: 160, angle: 0, speed: 0, vx: 0, vy: 0 };
+    let keys = {};
+    let asteroids = [];
+    function randAsteroid() {
+      let r = 20 + Math.random()*30;
+      let x = Math.random()*480, y = Math.random()*320;
+      let dx = (Math.random()-0.5)*2, dy = (Math.random()-0.5)*2;
+      return {x, y, r, dx, dy};
+    }
+    for(let i=0;i<5;i++) asteroids.push(randAsteroid());
+    document.addEventListener('keydown', e => keys[e.key]=true);
+    document.addEventListener('keyup', e => keys[e.key]=false);
+    function drawShip() {
+      ctx.save();
+      ctx.translate(ship.x, ship.y);
+      ctx.rotate(ship.angle);
+      ctx.beginPath();
+      ctx.moveTo(12,0); ctx.lineTo(-10,7); ctx.lineTo(-7,0); ctx.lineTo(-10,-7); ctx.closePath();
+      ctx.strokeStyle = '#7ecbff';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      ctx.restore();
+    }
+    function drawAsteroids() {
+      ctx.strokeStyle = '#eebbc3';
+      ctx.lineWidth = 2;
+      for(let a of asteroids) {
+        ctx.beginPath();
+        ctx.arc(a.x, a.y, a.r, 0, Math.PI*2);
+        ctx.stroke();
+      }
+    }
+    function update() {
+      if(keys['ArrowLeft']) ship.angle -= 0.07;
+      if(keys['ArrowRight']) ship.angle += 0.07;
+      if(keys['ArrowUp']) {
+        ship.vx += Math.cos(ship.angle)*0.2;
+        ship.vy += Math.sin(ship.angle)*0.2;
+      }
+      ship.x += ship.vx;
+      ship.y += ship.vy;
+      ship.x = (ship.x+480)%480;
+      ship.y = (ship.y+320)%320;
+      for(let a of asteroids) {
+        a.x += a.dx;
+        a.y += a.dy;
+        a.x = (a.x+480)%480;
+        a.y = (a.y+320)%320;
+      }
+    }
+    function draw() {
+      ctx.clearRect(0,0,480,320);
+      drawShip();
+      drawAsteroids();
+      update();
+      requestAnimationFrame(draw);
+    }
+    draw();
+  </script>
+</body>
+</html>

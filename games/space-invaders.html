@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Space Invaders</title>
+  <style>
+    body { background: #222; color: #fff; margin: 0; display: flex; flex-direction: column; align-items: center; }
+    canvas { background: #111; margin-top: 40px; border-radius: 8px; box-shadow: 0 2px 16px #000a; }
+    h1 { margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>Space Invaders</h1>
+  <canvas id="invaders" width="480" height="320"></canvas>
+  <script>
+    // Simple Space Invaders clone (minimal, for demo)
+    const canvas = document.getElementById('invaders');
+    const ctx = canvas.getContext('2d');
+    let player = { x: 220, y: 300, w: 40, h: 10 };
+    let left = false, right = false, space = false;
+    let bullets = [];
+    let invaders = [];
+    for(let i=0;i<6;i++) for(let j=0;j<3;j++) invaders.push({x:60+i*60, y:40+j*40, w:30, h:20, alive:true});
+    document.addEventListener('keydown', e => {
+      if(e.key==='ArrowLeft') left=true;
+      if(e.key==='ArrowRight') right=true;
+      if(e.key===' ') space=true;
+    });
+    document.addEventListener('keyup', e => {
+      if(e.key==='ArrowLeft') left=false;
+      if(e.key==='ArrowRight') right=false;
+      if(e.key===' ') space=false;
+    });
+    function drawPlayer() {
+      ctx.fillStyle = '#7ecbff';
+      ctx.fillRect(player.x, player.y, player.w, player.h);
+    }
+    function drawInvaders() {
+      ctx.fillStyle = '#eebbc3';
+      for(let inv of invaders) if(inv.alive) ctx.fillRect(inv.x, inv.y, inv.w, inv.h);
+    }
+    function drawBullets() {
+      ctx.fillStyle = '#fff';
+      for(let b of bullets) ctx.fillRect(b.x, b.y, 4, 10);
+    }
+    function update() {
+      if(left && player.x>0) player.x -= 5;
+      if(right && player.x<440) player.x += 5;
+      if(space && bullets.length<1) bullets.push({x:player.x+18, y:player.y-10});
+      for(let b of bullets) b.y -= 7;
+      bullets = bullets.filter(b => b.y>-10);
+      for(let inv of invaders) {
+        for(let b of bullets) {
+          if(inv.alive && b.x>inv.x && b.x<inv.x+inv.w && b.y>inv.y && b.y<inv.y+inv.h) {
+            inv.alive = false;
+            b.y = -20;
+          }
+        }
+      }
+    }
+    function draw() {
+      ctx.clearRect(0,0,480,320);
+      drawPlayer();
+      drawInvaders();
+      drawBullets();
+      update();
+      requestAnimationFrame(draw);
+    }
+    draw();
+  </script>
+</body>
+</html>
