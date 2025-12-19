@@ -1,0 +1,25 @@
+name: 'Check game embeds'
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  check-embeds:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install deps (none required)
+        run: npm install --no-audit --no-fund
+      - name: Run embed checks
+        run: npm run check-embeds
+      - name: Upload report
+        uses: actions/upload-artifact@v4
+        with:
+          name: embed-report
+          path: embed-report.json

@@ -1,0 +1,10 @@
+{
+  "name": "duke-ai-sor-site",
+  "version": "0.1.0",
+  "scripts": {
+    "check-embeds": "node scripts/check_embeds.js"
+  },
+  "engines": {
+    "node": ">=16"
+  }
+}

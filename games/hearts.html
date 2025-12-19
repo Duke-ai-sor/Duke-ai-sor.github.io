@@ -9,15 +9,28 @@
     #game { margin-top: 30px; }
     .info { margin: 10px 0; }
     .card { display: inline-block; width: 40px; height: 60px; background: #fff; color: #232946; border-radius: 6px; margin: 2px; text-align: center; line-height: 60px; font-size: 1.2rem; font-weight: bold; box-shadow: 0 1px 4px #0002; }
+    .play-btn {
+      display: inline-block;
+      margin-top: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: linear-gradient(90deg, #eebbc3 60%, #ffd6e0 100%);
+      color: #232946;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .play-btn:hover { filter: brightness(0.98); }
   </style>
 </head>
 <body>
   <h1>Hearts (Local)</h1>
-  <div class="info">This is a placeholder for a local Hearts card game. (Full implementation can be added.)</div>
-  <div id="game"></div>
-  <script>
-    // Placeholder: You can implement a full Hearts game here.
-    document.getElementById('game').innerHTML = '<div class="card">♥</div> <div class="card">♥</div> <div class="card">♥</div> <div class="card">♥</div>';
-  </script>
+  <div class="info">
+    <p>Click below to play Hearts (external implementation) or return to the games index.</p>
+    <a class="play-btn" href="https://www.cardgames.io/hearts/" target="_blank" rel="noopener noreferrer" style="margin-right:0.5rem;">Play Hearts</a>
+    <a class="play-btn" href="/index.html">Back to Games</a>
+  </div>
+  <div id="game" aria-hidden="true"></div>
 </body>
 </html>
